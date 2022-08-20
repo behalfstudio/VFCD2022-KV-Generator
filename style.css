@@ -1,0 +1,524 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    animation: fadeInAnimation ease 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    /* Generator UI/White */
+
+    background: #ffffff;
+}
+
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+
+h1 {
+    /* Generator UI/H1 */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 0px;
+    /* identical to box height, or 171% */
+
+    /* Generator UI/Purple */
+
+    color: #8a20d6;
+}
+
+h2 {
+    /* Generator UI/H2 */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 0px;
+    /* identical to box height, or 140% */
+
+    letter-spacing: 0.03em;
+
+    /* Generator UI/Black */
+
+    color: #000000;
+}
+
+h3 {
+    /* Generator UI/Small/Regular */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    /* identical to box height, or 140% */
+
+    letter-spacing: 0.03em;
+    font-feature-settings: "tnum" on, "lnum" on;
+
+    /* Generator UI/Black */
+
+    color: #000000;
+}
+
+small {
+    /* Generator UI/Small/Regular */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    /* identical to box height, or 140% */
+
+    letter-spacing: 0.03em;
+    font-feature-settings: "tnum" on, "lnum" on;
+
+    /* Generator UI/Black */
+
+    color: #000000;
+}
+
+small.all-caps {
+    /* Generator UI/Small/All Caps */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    /* identical to box height, or 100% */
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-feature-settings: "tnum" on, "lnum" on, "case" on, "zero" on;
+
+    /* Generator UI/Purple */
+
+    color: #8a20d6;
+}
+
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+
+.settings-container {
+    box-sizing: border-box;
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+
+    width: 280px;
+    height: 100%;
+
+    /* Generator UI/Gray 20% */
+
+    border-right: 0.5px solid #e6e6e6;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+
+    /* display: none; */
+}
+
+/*----------------------------------------------*/
+
+.settings-container .heading {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 12px 8px;
+    gap: 4px;
+
+    /* Generator UI/Gray 20% */
+
+    border-bottom: 0.5px solid #e6e6e6;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.heading .title {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    gap: 72px;
+
+    width: 256px;
+    height: 24px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.heading .caption {
+    /* Generator UI/Small/Regular */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 14px;
+    /* or 140% */
+
+    letter-spacing: 0.03em;
+    font-feature-settings: "tnum" on, "lnum" on;
+
+    color: #000000;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+a {
+    text-decoration: none;
+    padding: 4px 0px 4px 0px;
+
+    color: #000000;
+    background-color: none;
+
+    transition: 0.3s;
+}
+
+a:hover {
+    color: white;
+    background-color: #2f55bf;
+
+    padding: 4px 6px 4px 6px;
+}
+
+/*----------------------------------------------*/
+
+.settings-container .settings {
+    /* Scrollable */
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 12px;
+
+    overflow-y: scroll;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 1;
+}
+
+.scrollable {
+    overflow-y: scroll;
+}
+
+.settings .section {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 0px;
+    gap: 12px;
+
+    /* Generator UI/Gray 20% */
+
+    border-width: 0.5px 0px;
+    border-style: solid;
+    border-color: #e6e6e6;
+
+    /* Inside auto layout */
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.section .row {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+/*----------------------------------------------*/
+
+.property-container {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    flex-grow: 1;
+}
+
+.fixed {
+    width: 72px;
+}
+
+.fill {
+}
+
+input[type="text"],
+input[type="number"] {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 8px 8px 6px;
+    gap: 10px;
+
+    /* Generator UI/Gray 20% */
+
+    background: #e6e6e6;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+
+    /* Generator UI/Small/All Caps */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    /* identical to box height, or 100% */
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-feature-settings: "tnum" on, "lnum" on, "case" on, "zero" on;
+
+    /* Generator UI/Purple */
+
+    color: #8a20d6;
+
+    border: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+}
+
+/*----------------------------------------------*/
+
+.custom-select {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+select {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 8px 0px 6px 6px;
+
+    /* Generator UI/Gray 20% */
+
+    background: #e6e6e6;
+    border: none;
+    outline: none;
+
+    width: 100%;
+
+    /* Generator UI/Small/All Caps */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    /* identical to box height, or 100% */
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-feature-settings: "tnum" on, "lnum" on, "case" on, "zero" on;
+
+    /* Generator UI/Purple */
+
+    color: #8a20d6;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+select:focus {
+    border: none;
+    outline: none;
+}
+
+/*----------------------------------------------*/
+
+button {
+    /* Button */
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 12px 12px;
+    gap: 10px;
+
+    /* Generator UI/Blue */
+
+    background: #2f55bf;
+
+    /* Generator UI/Caption */
+
+    font-family: "acumin-pro";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 14px;
+    /* identical to box height, or 100% */
+
+    letter-spacing: 0.05em;
+
+    /* Generator UI/White */
+
+    color: #ffffff;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+
+    /* Click behavior */
+
+    opacity: 1;
+    transition: 0.3s opacity;
+    cursor: pointer;
+
+    border: none;
+}
+
+button:hover {
+    /* Click behavior */
+
+    opacity: 0.9;
+    transition: 0.3s opacity;
+    cursor: pointer;
+}
+
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+
+.canvas-container {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 1;
+}
