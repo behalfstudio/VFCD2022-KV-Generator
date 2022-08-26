@@ -1,7 +1,3 @@
-let BACKGROUND_COLOR, METABALL_COLORS;
-let EXPORT_WIDTH, EXPORT_HEIGHT, EXPORT_RESOLUTION;
-let EXPORT_TYPE;
-
 const updateParameters = () => {
     BACKGROUND_COLOR = (function (BACKGROUND_COLOR) {
         let temp = "#" + document.getElementById("background-color").value;

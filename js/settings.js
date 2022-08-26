@@ -480,25 +480,6 @@ const METABALL_MAX_PROGRESS_RANGE = [120, 480];
 const METABALL_SPEED_RANGE = [0.8, 1.6];
 const METABALL_COLOR_LERP_SPEED = [360, 720];
 
-// const BACKGROUND_COLORS = "#e2e2da";
-
-// const METABALL_COLORS = [
-//     "#147d41", // Green
-//     "#b0e64c", // Lime
-//     "#f0ca30", // Yellow
-//     "#ff5959", // Red
-//     "#8a20d6", // Purple
-//     "#2f55bf", // Blue
-
-//     // "#ff31ac", // Magenta
-//     // "#ad1bf2", // Purple
-//     // "#0353ff", // Blue
-//     // "#00dbb6", // Olive
-//     // "#3ad331", // Lime
-//     // "#fff64a", // Yellow
-//     // "#ea2b11", // Red
-// ];
-
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//

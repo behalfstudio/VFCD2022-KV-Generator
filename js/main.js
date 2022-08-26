@@ -33,6 +33,10 @@ let WIDTH, HEIGHT;
 
 let exportCanvas;
 
+let BACKGROUND_COLOR, METABALL_COLORS;
+let EXPORT_WIDTH, EXPORT_HEIGHT, EXPORT_RESOLUTION;
+let EXPORT_TYPE;
+
 //-----------------------------------------------------------------//
 
 function setup() {
