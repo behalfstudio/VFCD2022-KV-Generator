@@ -1,7 +1,5 @@
 class Butterfly {
-    constructor(shaderMode) {
-        this.shaderMode = shaderMode;
-
+    constructor() {
         this.lerpProgress = 0;
 
         this.fromShapeVariety;
@@ -10,37 +8,28 @@ class Butterfly {
         const LEFT = 0;
         const RIGHT = 1;
 
-        this.colors = METABALL_COLORS;
-        this.bgColor = BACKGROUND_COLORS;
+        BACKGROUND_COLOR = BACKGROUND_COLOR;
 
         this.metaballs = [];
 
         this.hindwingVertices = [];
         this.hindwingTexture = createGraphics(WIDTH, HEIGHT, WEBGL);
         this.hindwingTexture.noStroke();
-        this.hindwingTexture.shader(hindwingShader);
+        this.hindwingTexture.shader(hindwingMetaballShader);
         this.hindwingMask = createGraphics(WIDTH, HEIGHT);
         this.hindwingImg = createImage(WIDTH, HEIGHT);
 
         this.forewingVertices = [];
         this.forewingTexture = createGraphics(WIDTH, HEIGHT, WEBGL);
         this.forewingTexture.noStroke();
-        this.forewingTexture.shader(forewingShader);
+        this.forewingTexture.shader(forewingMetaballShader);
         this.forewingMask = createGraphics(WIDTH, HEIGHT);
         this.forewing = createImage(WIDTH, HEIGHT);
 
         this.wings = createGraphics(WIDTH, HEIGHT);
 
         this.canvas = createGraphics(WIDTH, HEIGHT, WEBGL);
-
-        switch (this.shaderMode) {
-            case RADIAL_BLUR:
-                this.canvas.shader(radialBlurShader);
-                break;
-            case GRAINY_BLUR:
-                this.canvas.shader(grainyBlurShader);
-                break;
-        }
+        this.canvas.shader(grainyGradientShader);
     }
 
     //--------------------------------------------------------------//
@@ -57,23 +46,15 @@ class Butterfly {
         this.lerpWing(this.forewingVertices, FOREWING_VERTEX_COUNT, 0);
         this.lerpWing(this.hindwingVertices, HINDWING_VERTEX_COUNT, 1);
 
-        this.focalPoint = createVector(
-            WIDTH / 2,
-            ((this.forewingVertices[0].y +
-                this.hindwingVertices[HINDWING_VERTEX_COUNT - 1].y) /
-                2) *
-                HEIGHT
-        );
-
         this.lerpProgress = (this.lerpProgress + 1) % LERP_MAX_PROGRESS;
 
         //----------------------------------------------------------//
 
         this.wings.clear();
-        this.wings.background(this.bgColor);
+        this.wings.background(BACKGROUND_COLOR);
 
         this.drawWings(
-            hindwingShader,
+            hindwingMetaballShader,
             {
                 u_Positions: this.metaballPositions.slice(
                     0,
@@ -87,6 +68,7 @@ class Butterfly {
                     0,
                     Math.floor((METABALL_MAX_COUNT * 3) / 2)
                 ),
+                u_Strength: 2.4,
             },
 
             this.hindwingVertices,
@@ -99,7 +81,7 @@ class Butterfly {
         );
 
         this.drawWings(
-            forewingShader,
+            forewingMetaballShader,
             {
                 u_Positions: this.metaballPositions.slice(
                     Math.floor((METABALL_MAX_COUNT * 2) / 2)
@@ -110,6 +92,7 @@ class Butterfly {
                 u_Colors: this.metaballColors.slice(
                     Math.floor((METABALL_MAX_COUNT * 3) / 2)
                 ),
+                u_Strength: 2.4,
             },
 
             this.forewingVertices,
@@ -120,6 +103,8 @@ class Butterfly {
 
             this.forewing
         );
+
+        this.updateFocalPoint();
     }
 
     //--------------------------------------------------------------//
@@ -284,37 +269,45 @@ class Butterfly {
     //--------------------------------------------------------------//
     //--------------------------------------------------------------//
 
-    display() {
-        switch (this.shaderMode) {
-            case RADIAL_BLUR:
-                radialBlurShader.setUniform("tex0", this.wings);
-                radialBlurShader.setUniform("u_Resolution", [WIDTH, HEIGHT]);
-                radialBlurShader.setUniform("u_FocalPoint", [
-                    this.focalPoint.x,
-                    this.focalPoint.y,
-                ]);
-                radialBlurShader.setUniform("u_Strength", BLUR_STRENGTH);
-                radialBlurShader.setUniform("u_Scale", 100.0);
-                radialBlurShader.setUniform("u_Time", millis() / 1000.0);
-                radialBlurShader.setUniform("u_TimeSpeed", 0.1);
-                radialBlurShader.setUniform("u_Amount", 1.0);
-                break;
+    updateFocalPoint() {
+        this.focalPoint = createVector(WIDTH / 2, HEIGHT / 2);
+    }
 
-            case GRAINY_BLUR:
-                grainyBlurShader.setUniform("tex0", this.wings);
-                grainyBlurShader.setUniform("u_Dist", 2.0);
-                grainyBlurShader.setUniform("u_Resolution", [WIDTH, HEIGHT]);
-                break;
-        }
+    //--------------------------------------------------------------//
+    //--------------------------------------------------------------//
+    //--------------------------------------------------------------//
+
+    display() {
+        this.applyGrains(GRAIN_STRENGTH * WIDTH, GRAIN_TIME_SPEED);
 
         this.canvas.clear();
         this.canvas.rect(0, 0, WIDTH, HEIGHT);
 
-        image(this.canvas, 0, 0, width, height);
+        image(
+            this.canvas,
 
-        // image(this.hindwingTexture, 0, 0, width, height);
+            width / 2,
+            height / 2,
+
+            min(width, height),
+            min(width, height)
+        );
 
         // this.drawMetaballs();
+    }
+
+    //--------------------------------------------------------------//
+
+    applyGrains(scale, timeSpeed) {
+        grainyGradientShader.setUniform("tex0", this.wings);
+        grainyGradientShader.setUniform("u_Resolution", [WIDTH, HEIGHT]);
+        grainyGradientShader.setUniform("u_FocalPoint", [
+            this.focalPoint.x,
+            this.focalPoint.y,
+        ]);
+        grainyGradientShader.setUniform("u_Scale", scale);
+        grainyGradientShader.setUniform("u_Time", millis() / 1000.0);
+        grainyGradientShader.setUniform("u_TimeSpeed", timeSpeed);
     }
 
     //--------------------------------------------------------------//
@@ -382,7 +375,23 @@ class Butterfly {
 
         mask.endShape(CLOSE);
 
-        // mask.background(0);
+        switch (EXPORT_TYPE) {
+            case PATTERNED_BUTTERFLY_WITH_BLUR:
+                // image(
+                //     this.canvas,
+
+                //     width / 2,
+                //     height / 2,
+
+                //     min(width, height),
+                //     min(width, height)
+                // );
+                break;
+
+            case PATTERN_ONLY:
+                mask.background(0);
+                break;
+        }
     }
 
     //--------------------------------------------------------------//
@@ -391,6 +400,7 @@ class Butterfly {
         shader.setUniform("u_Positions", uniforms.u_Positions);
         shader.setUniform("u_Sizes", uniforms.u_Sizes);
         shader.setUniform("u_Colors", uniforms.u_Colors);
+        shader.setUniform("u_Strength", uniforms.u_Strength);
         shader.setUniform("u_Resolution", [WIDTH, HEIGHT]);
 
         texture.noStroke();
@@ -508,15 +518,18 @@ class Butterfly {
 
         switch (this.shaderMode) {
             case RADIAL_BLUR:
-                mask.shader(radialBlurShader2);
+                mask.shader(grainyGradientShader2);
 
-                radialBlurShader2.setUniform("tex0", silhouetteImg);
-                radialBlurShader2.setUniform("u_Resolution", [WIDTH, HEIGHT]);
-                radialBlurShader2.setUniform("u_FocalPoint", [
+                grainyGradientShader2.setUniform("tex0", silhouetteImg);
+                grainyGradientShader2.setUniform("u_Resolution", [
+                    WIDTH,
+                    HEIGHT,
+                ]);
+                grainyGradientShader2.setUniform("u_FocalPoint", [
                     this.focalPoint.x,
                     this.focalPoint.y,
                 ]);
-                radialBlurShader2.setUniform("u_Strength", BLUR_STRENGTH);
+                grainyGradientShader2.setUniform("u_Strength", BLUR_STRENGTH);
 
                 break;
 
@@ -533,80 +546,6 @@ class Butterfly {
         mask.rect(0, 0, WIDTH, HEIGHT);
 
         return mask;
-    }
-
-    //--------------------------------------------------------------//
-
-    colorToAlpha(pixel, background) {
-        let pr = red(pixel),
-            pg = green(pixel),
-            pb = blue(pixel),
-            br = red(background),
-            bg = green(background),
-            bb = blue(background);
-
-        let r, g, b, a;
-
-        if (pr > br) r = (pr - br) / (255 - br);
-        else if (pr < br) r = (br - pr) / br;
-        else r = 0;
-
-        if (pg > br) g = (pg - bg) / (255 - bg);
-        else if (pg < bg) g = (bg - pg) / bg;
-        else g = 0;
-
-        if (pb > bb) b = (pb - bb) / (255 - bb);
-        else if (pb < bb) b = (bb - pb) / bb;
-        else b = 0;
-
-        if (r > g) a = r > b ? r * 255 : b * 255;
-        else a = g > b ? g * 255 : b * 255;
-
-        // return color(
-        //     (255 * (r - br)) / a + br,
-        //     (255 * (g - bg)) / a + bg,
-        //     (255 * (b - bb)) / a + bb,
-        //     a
-        // );
-
-        return a;
-
-        // if (pixel.R > color.R)
-        //             *a1 = (pixel.R - color.R) / (255.0 - color.R);
-        //         else if (pixel.R < color.R)
-        //             *a1 = (color.R - pixel.R) / color.R;
-        //         else
-        //             *a1 = 0.0;
-
-        //         if (pixel.G > color.G)
-        //             *a2 = (pixel.G - color.G) / (255.0 - color.G);
-        //         else if (pixel.G < color.G)
-        //             *a2 = (color.G - pixel.G) / color.G;
-        //         else
-        //             *a2 = 0.0;
-
-        //         if (pixel.B > color.B)
-        //             *a3 = (pixel.B - color.B) / (255.0 - color.B);
-        //         else if (pixel.B < color.B)
-        //             *a3 = (color.B - pixel.B) / color.B;
-        //         else
-        //             *a3 = 0.0;
-
-        //         if (*a1 > *a2)
-        //             *a4 = *a1 > *a3 ? *a1 * 255.0 : *a3 * 255.0;
-        //         else
-        //             *a4 = *a2 > *a3 ? *a2 * 255.0 : *a3 * 255.0;
-
-        //         if (*a4 < 1.0)
-        //             return;
-
-        //         pixel.R = (byte)Math.Truncate((255.0 * (*a1 - color.R) / *a4 + color.R));
-        //         pixel.G = (byte)Math.Truncate((255.0 * (*a2 - color.G) / *a4 + color.G));
-        //         pixel.B = (byte)Math.Truncate((255.0 * (*a3 - color.B) / *a4 + color.B));
-
-        //         pixel.A = (byte)Math.Truncate(*a4);
-
-        return pixel;
     }
 
     //--------------------------------------------------------------//

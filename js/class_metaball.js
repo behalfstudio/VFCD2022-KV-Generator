@@ -14,10 +14,7 @@ class Metaball {
         this.maxRadius = maxRadius;
         this.radius = Math.random() * maxRadius;
 
-        this.colorLerpProgress = 0;
-
-        this.toColorId = Math.floor(Math.random() * METABALL_COLORS.length);
-        this.color = color(METABALL_COLORS[this.toColorId]);
+        this.color = color(random(METABALL_COLORS));
     }
 
     //--------------------------------------------------------------//
@@ -35,6 +32,12 @@ class Metaball {
     //--------------------------------------------------------------//
 
     updateColor() {
+        this.color = color(random(METABALL_COLORS));
+    }
+
+    //--------------------------------------------------------------//
+
+    updateColorLerp() {
         if (this.colorLerpProgress == 0) {
             this.fromColorId = this.toColorId;
 

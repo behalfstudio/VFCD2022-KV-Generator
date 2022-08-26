@@ -474,49 +474,49 @@ const VERTEX_WIGGLE_SCALE = 0.004;
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//
 
-const METABALL_MAX_COUNT = 24;
+const METABALL_MAX_COUNT = 12;
 const METABALL_MAX_RADIUS_RANGE = [1.0, 5.0];
 const METABALL_MAX_PROGRESS_RANGE = [120, 480];
 const METABALL_SPEED_RANGE = [0.8, 1.6];
 const METABALL_COLOR_LERP_SPEED = [360, 720];
 
-const BACKGROUND_COLORS = "#e2e2da";
+// const BACKGROUND_COLORS = "#e2e2da";
 
-const METABALL_COLORS = [
-    "#147d41", // Green
-    "#b0e64c", // Lime
-    "#f0ca30", // Yellow
-    "#ff5959", // Red
-    "#8a20d6", // Purple
-    "#2f55bf", // Blue
+// const METABALL_COLORS = [
+//     "#147d41", // Green
+//     "#b0e64c", // Lime
+//     "#f0ca30", // Yellow
+//     "#ff5959", // Red
+//     "#8a20d6", // Purple
+//     "#2f55bf", // Blue
 
-    // "#ff31ac", // Magenta
-    // "#ad1bf2", // Purple
-    // "#0353ff", // Blue
-    // "#00dbb6", // Olive
-    // "#3ad331", // Lime
-    // "#fff64a", // Yellow
-    // "#ea2b11", // Red
-];
-
-//--------------------------------------------------------------//
-//--------------------------------------------------------------//
-//--------------------------------------------------------------//
-
-const RADIAL_BLUR = 0;
-const GRAINY_BLUR = 1;
-const SHADER_MODE = RADIAL_BLUR;
-const BLUR_STRENGTH = 0.24;
+//     // "#ff31ac", // Magenta
+//     // "#ad1bf2", // Purple
+//     // "#0353ff", // Blue
+//     // "#00dbb6", // Olive
+//     // "#3ad331", // Lime
+//     // "#fff64a", // Yellow
+//     // "#ea2b11", // Red
+// ];
 
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//
 
-const EXPORT_CANVAS_WIDTH = 1000;
-const EXPORT_CANVAS_HEIGHT = 1000;
+const GRAIN_STRENGTH = 0.05;
+const GRAIN_TIME_SPEED = 0.2;
+
+//--------------------------------------------------------------//
+//--------------------------------------------------------------//
+//--------------------------------------------------------------//
 
 const EXPORT_DIRECTORY = "export/";
 const EXPORT_FILE_EXT = ".png";
+
+const PATTERNED_BUTTERFLY_WITH_BLUR = 0;
+const PATTERN_ONLY = 1;
+const PATTERNED_BUTTERFLY = 2;
+const SILHOUETTE_ONLY = 3;
 
 const DATE = 0;
 const TIMESTAMP = 1;

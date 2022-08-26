@@ -4,17 +4,25 @@ body {
     padding: 0;
 }
 
+/*----------------------------------------------*/
+
 *,
 *:before,
 *:after {
     box-sizing: border-box;
 }
 
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+/*----------------------------------------------*/
+
 body {
     animation: fadeInAnimation ease 1s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
+
+/*----------------------------------------------*/
 
 @keyframes fadeInAnimation {
     0% {
@@ -30,6 +38,9 @@ body {
 /*----------------------------------------------*/
 
 main {
+    margin: 0;
+    padding: 0;
+
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -521,4 +532,9 @@ button:hover {
     order: 1;
     align-self: stretch;
     flex-grow: 1;
+}
+
+canvas {
+    margin: 0;
+    padding: 0;
 }

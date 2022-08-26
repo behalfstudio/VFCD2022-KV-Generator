@@ -4,13 +4,13 @@ precision mediump float;
 
 varying vec2 vTexCoord;
 
-const int BALL_COUNT = 12;
+const int BALL_COUNT = 6;
 
 uniform vec2 u_Positions[BALL_COUNT];
 uniform float u_Sizes[BALL_COUNT];
 uniform vec3 u_Colors[BALL_COUNT];
-uniform vec2 u_Resolution;
 uniform float u_Strength;
+uniform vec2 u_Resolution;
 
 //--------------------------------------------------------------//
 //--------------------------------------------------------------//
